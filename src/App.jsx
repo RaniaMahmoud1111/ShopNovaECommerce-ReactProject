@@ -14,9 +14,9 @@ function AppRoutes() {
   const { user } = useAuth();
   return (
     <Routes>
-      <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-      <Route path="/products" element={<ProtectedRoute><ProductsPage /></ProtectedRoute>} />
-      <Route path="/products/:id" element={<ProtectedRoute><ProductDetailsPage /></ProtectedRoute>} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/products/:id" element={<ProductDetailsPage />} />
       <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
       <Route path="/order-shipped" element={<ProtectedRoute><OrderShippedPage /></ProtectedRoute>} />
       <Route path="/register" element={user ? <Navigate to="/" replace /> : <RegisterPage />} />

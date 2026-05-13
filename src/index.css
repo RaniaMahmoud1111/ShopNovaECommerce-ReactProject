@@ -11,11 +11,24 @@
   --color-border-custom: #E5E7EB;
   --color-success-custom: #22C55E;
   --color-danger-custom: #EF4444;
-
   --radius-custom: 16px;
   --shadow-custom: 0 4px 12px rgba(124, 58, 237, 0.1);
-
   --font-family-poppins: 'Poppins', sans-serif;
+}
+
+:root {
+  --primary: #7C3AED;
+  --primary-light: #A855F7;
+  --primary-dark: #5B21B6;
+  --background: #F8F5FF;
+  --surface: #FFFFFF;
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+  --success: #22C55E;
+  --danger: #EF4444;
+  --radius: 16px;
+  --shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
 }
 
 @layer base {
