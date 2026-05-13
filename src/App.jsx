@@ -1,15 +1,15 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+
 import Test from './components/Test/Test'
 
 function App() {
-
   return (
-    <>
-      <Test />
-
-    </>
-  )
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
