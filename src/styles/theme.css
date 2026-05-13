@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+
+  /* COLORS */
+  --primary: #7C3AED;
+  --primary-light: #A855F7;
+  --primary-dark: #5B21B6;
+
+  --background: #F8F5FF;
+  --surface: #FFFFFF;
+
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+
+  --border: #E5E7EB;
+
+  --success: #22C55E;
+  --danger: #EF4444;
+
+  /* RADIUS */
+  --radius: 16px;
+
+  /* SHADOW */
+  --shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+
+/* BUTTON */
+.primary-btn{
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--primary-light)
+  );
+
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: .3s;
+  font-weight: 600;
+}
+
+.primary-btn:hover{
+  transform: translateY(-2px);
+}
+
+
+/* CARD */
+.card-ui{
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+
+/* INPUT */
+.input-ui{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+}
