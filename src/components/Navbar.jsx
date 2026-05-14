@@ -15,12 +15,18 @@ export default function Navbar() {
   const navLinks = [
     { label: "Home", path: "/" },
     { label: "Products", path: "/products" },
-    { label: "Contact", path: "/contact" },
   ];
 
   const handleLogout = () => {
     logout();
     navigate("/login");
+  };
+
+  const handleCartClick = (e) => {
+    if (!user) {
+      e.preventDefault();
+      navigate("/login");
+    }
   };
 
   return (
@@ -47,16 +53,17 @@ export default function Navbar() {
       </ul>
 
       <div style={styles.actions}>
-        <Link to="/cart" style={styles.cartBtn}>
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <Link to="/cart" style={styles.cartBtn} onClick={handleCartClick}>
+          <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
             <line x1="3" y1="6" x2="21" y2="6" strokeLinecap="round" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M16 10a4 4 0 01-8 0" />
           </svg>
+          <span style={styles.cartLabel}>Cart</span>
           {cartCount > 0 && <span style={styles.cartBadge}>{cartCount}</span>}
         </Link>
 
-        {user && (
+        {user ? (
           <div style={styles.userArea}>
             <div style={styles.avatar}>
               {(user.name || user.email || "U")[0].toUpperCase()}
@@ -64,10 +71,15 @@ export default function Navbar() {
             <span style={styles.userName}>
               {user.name || user.email?.split("@")[0]}
             </span>
-            <button onClick={handleLogout} style={styles.logoutBtn}>
+            <button onClick={handleLogout} style={styles.logoutBtn}
+              onMouseEnter={e => e.target.style.borderColor = "var(--primary)"}
+              onMouseLeave={e => e.target.style.borderColor = "var(--border)"}
+            >
               Logout
             </button>
           </div>
+        ) : (
+          <Link to="/login" style={styles.loginBtn}>Login</Link>
         )}
 
         <button style={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
@@ -92,6 +104,9 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link to="/cart" style={styles.mobileLink} onClick={(e) => { setMenuOpen(false); handleCartClick(e); }}>
+            Cart {cartCount > 0 && `(${cartCount})`}
+          </Link>
           {user && (
             <button onClick={() => { handleLogout(); setMenuOpen(false); }} style={styles.mobileLogout}>
               Logout
@@ -113,154 +128,34 @@ const styles = {
     justifyContent: "space-between",
     padding: "0 32px",
     height: "68px",
-    background: "rgba(255,255,255,0.85)",
+    background: "rgba(255,255,255,0.92)",
     backdropFilter: "blur(12px)",
     borderBottom: "1px solid var(--border)",
     boxShadow: "0 2px 16px rgba(124,58,237,0.07)",
     flexWrap: "wrap",
     gap: "12px",
   },
-  logo: {
-    fontSize: "22px",
-    fontWeight: "700",
-    color: "var(--text-primary)",
-    textDecoration: "none",
-    letterSpacing: "-0.5px",
-  },
+  logo: { fontSize: "22px", fontWeight: "700", color: "var(--text-primary)", textDecoration: "none", letterSpacing: "-0.5px" },
   logoAccent: { color: "var(--primary)" },
-  navLinks: {
-    display: "flex",
-    gap: "32px",
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-  },
-  navLink: {
-    position: "relative",
-    textDecoration: "none",
-    color: "var(--text-secondary)",
-    fontSize: "14px",
-    fontWeight: "500",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "4px",
-    transition: "color 0.2s",
-  },
+  navLinks: { display: "flex", gap: "32px", listStyle: "none", margin: 0, padding: 0 },
+  navLink: { position: "relative", textDecoration: "none", color: "var(--text-secondary)", fontSize: "14px", fontWeight: "500", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", transition: "color 0.2s" },
   navLinkActive: { color: "var(--primary)", fontWeight: "600" },
-  activeDot: {
-    width: "6px",
-    height: "6px",
-    borderRadius: "50%",
-    background: "var(--primary)",
-    display: "block",
-  },
-  actions: { display: "flex", alignItems: "center", gap: "16px" },
-  cartBtn: {
-    position: "relative",
-    color: "var(--text-primary)",
-    display: "flex",
-    alignItems: "center",
-    padding: "8px",
-    borderRadius: "12px",
-    cursor: "pointer",
-  },
-  cartBadge: {
-    position: "absolute",
-    top: "2px",
-    right: "2px",
-    background: "var(--primary)",
-    color: "white",
-    fontSize: "10px",
-    fontWeight: "700",
-    width: "18px",
-    height: "18px",
-    borderRadius: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  activeDot: { width: "6px", height: "6px", borderRadius: "50%", background: "var(--primary)", display: "block" },
+  actions: { display: "flex", alignItems: "center", gap: "12px" },
+  cartBtn: { position: "relative", color: "white", display: "flex", alignItems: "center", gap: "6px", padding: "8px 16px", borderRadius: "12px", cursor: "pointer", background: "linear-gradient(90deg, var(--primary), var(--primary-light))", textDecoration: "none", fontSize: "13px", fontWeight: "600", boxShadow: "0 4px 12px rgba(124,58,237,0.3)" },
+  cartLabel: { fontSize: "13px", fontWeight: "600" },
+  cartBadge: { background: "white", color: "var(--primary)", fontSize: "10px", fontWeight: "700", width: "18px", height: "18px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" },
   userArea: { display: "flex", alignItems: "center", gap: "10px" },
-  avatar: {
-    width: "36px",
-    height: "36px",
-    borderRadius: "50%",
-    background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
-    color: "white",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "14px",
-    fontWeight: "700",
-  },
-  userName: {
-    fontSize: "13px",
-    fontWeight: "500",
-    color: "var(--text-primary)",
-    maxWidth: "100px",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-  },
-  logoutBtn: {
-    background: "transparent",
-    border: "1.5px solid var(--border)",
-    borderRadius: "10px",
-    padding: "6px 14px",
-    fontSize: "12px",
-    fontWeight: "500",
-    color: "var(--text-secondary)",
-    cursor: "pointer",
-  },
-  hamburger: {
-    display: "none",
-    flexDirection: "column",
-    gap: "5px",
-    background: "transparent",
-    border: "none",
-    cursor: "pointer",
-    padding: "4px",
-  },
-  bar: {
-    display: "block",
-    width: "22px",
-    height: "2px",
-    background: "var(--text-primary)",
-    borderRadius: "2px",
-    transition: "all 0.3s",
-  },
+  avatar: { width: "36px", height: "36px", borderRadius: "50%", background: "linear-gradient(135deg, var(--primary), var(--primary-light))", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "700" },
+  userName: { fontSize: "13px", fontWeight: "500", color: "var(--text-primary)", maxWidth: "100px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" },
+  logoutBtn: { background: "transparent", border: "1.5px solid var(--border)", borderRadius: "10px", padding: "6px 14px", fontSize: "12px", fontWeight: "500", color: "var(--text-secondary)", cursor: "pointer", transition: "border-color 0.2s" },
+  loginBtn: { textDecoration: "none", color: "var(--primary)", fontSize: "13px", fontWeight: "600", padding: "6px 14px", border: "1.5px solid var(--primary)", borderRadius: "10px" },
+  hamburger: { display: "none", flexDirection: "column", gap: "5px", background: "transparent", border: "none", cursor: "pointer", padding: "4px" },
+  bar: { display: "block", width: "22px", height: "2px", background: "var(--text-primary)", borderRadius: "2px", transition: "all 0.3s" },
   barTop: { transform: "translateY(7px) rotate(45deg)" },
   barBot: { transform: "translateY(-7px) rotate(-45deg)" },
-  mobileMenu: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px",
-    padding: "12px 0",
-    borderTop: "1px solid var(--border)",
-  },
-  mobileLink: {
-    textDecoration: "none",
-    color: "var(--text-secondary)",
-    fontSize: "15px",
-    fontWeight: "500",
-    padding: "10px 8px",
-    borderRadius: "10px",
-  },
-  mobileLinkActive: {
-    color: "var(--primary)",
-    background: "rgba(124,58,237,0.06)",
-    fontWeight: "600",
-  },
-  mobileLogout: {
-    background: "transparent",
-    border: "none",
-    color: "var(--danger)",
-    fontSize: "15px",
-    fontWeight: "500",
-    padding: "10px 8px",
-    cursor: "pointer",
-    textAlign: "left",
-    borderRadius: "10px",
-  },
+  mobileMenu: { width: "100%", display: "flex", flexDirection: "column", gap: "4px", padding: "12px 0", borderTop: "1px solid var(--border)" },
+  mobileLink: { textDecoration: "none", color: "var(--text-secondary)", fontSize: "15px", fontWeight: "500", padding: "10px 8px", borderRadius: "10px" },
+  mobileLinkActive: { color: "var(--primary)", background: "rgba(124,58,237,0.06)", fontWeight: "600" },
+  mobileLogout: { background: "transparent", border: "none", color: "var(--danger)", fontSize: "15px", fontWeight: "500", padding: "10px 8px", cursor: "pointer", textAlign: "left", borderRadius: "10px" },
 };

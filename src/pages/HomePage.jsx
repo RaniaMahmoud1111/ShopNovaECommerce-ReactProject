@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import HeroSection from "../components/HeroSection";
+import FeaturedProducts from "../components/FeaturedProducts";
 import Footer from "../components/Footer";
 
 export default function HomePage() {
@@ -9,8 +10,7 @@ export default function HomePage() {
       <Navbar />
       <Slider />
       <HeroSection />
-      {/* FeaturedProducts هيتضاف هنا بعدين */}
-      <div style={{ flex: 1 }} />
+      <FeaturedProducts />
       <Footer />
     </div>
   );

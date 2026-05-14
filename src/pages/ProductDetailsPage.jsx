@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Loader from '../components/Loader';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,7 +28,6 @@ export default function ProductDetailsPage() {
       setProduct(data);
       setSelectedImage(0);
 
-      // Fetch related products from the same category
       if (data.category) {
         const relatedResponse = await fetch(`https://dummyjson.com/products/category/${data.category}?limit=4`);
         if (relatedResponse.ok) {
@@ -48,6 +50,7 @@ export default function ProductDetailsPage() {
     for (let i = 0; i < quantity; i++) {
       addToCart(product);
     }
+    navigate('/cart');
   };
 
   const renderStars = (rating) => {
@@ -86,6 +89,7 @@ export default function ProductDetailsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
+        <Navbar />
         <div className="container mx-auto px-4 py-8">
           <Loader />
         </div>
@@ -96,6 +100,7 @@ export default function ProductDetailsPage() {
   if (error || !product) {
     return (
       <div className="min-h-screen bg-background">
+        <Navbar />
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
             <svg className="w-16 h-16 text-danger-custom mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,14 +116,16 @@ export default function ProductDetailsPage() {
             </Link>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
+   <div className="min-h-screen bg-background" style={{ paddingTop: "68px" }}>
+        <Navbar />
+    <div className="container mx-auto px-4 py-8">
+            {/* Breadcrumb */}
         <nav className="mb-8">
           <Link to="/" className="text-text-secondary hover:text-primary transition-colors">Home</Link>
           <span className="mx-2 text-text-secondary">/</span>
@@ -135,9 +142,7 @@ export default function ProductDetailsPage() {
                 src={product.images?.[selectedImage] || product.thumbnail || '/placeholder-image.jpg'}
                 alt={product.title}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.src = '/placeholder-image.jpg';
-                }}
+                onError={(e) => { e.target.src = '/placeholder-image.jpg'; }}
               />
             </div>
             {product.images && product.images.length > 1 && (
@@ -156,9 +161,7 @@ export default function ProductDetailsPage() {
                       src={image}
                       alt={`${product.title} ${index + 1}`}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.src = '/placeholder-image.jpg';
-                      }}
+                      onError={(e) => { e.target.src = '/placeholder-image.jpg'; }}
                     />
                   </button>
                 ))}
@@ -174,9 +177,7 @@ export default function ProductDetailsPage() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="flex items-center">
-                {renderStars(product.rating)}
-              </div>
+              <div className="flex items-center">{renderStars(product.rating)}</div>
               <span className="text-text-secondary">({product.rating})</span>
             </div>
 
@@ -287,9 +288,7 @@ export default function ProductDetailsPage() {
                       </div>
                       <div>
                         <p className="font-semibold text-text-primary">{review.reviewerName || 'Anonymous'}</p>
-                        <div className="flex items-center">
-                          {renderStars(review.rating)}
-                        </div>
+                        <div className="flex items-center">{renderStars(review.rating)}</div>
                       </div>
                     </div>
                     <span className="text-text-secondary text-sm">
@@ -319,9 +318,7 @@ export default function ProductDetailsPage() {
                       src={relatedProduct.thumbnail || '/placeholder-image.jpg'}
                       alt={relatedProduct.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => {
-                        e.target.src = '/placeholder-image.jpg';
-                      }}
+                      onError={(e) => { e.target.src = '/placeholder-image.jpg'; }}
                     />
                   </div>
                   <div className="p-4">
@@ -336,6 +333,7 @@ export default function ProductDetailsPage() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

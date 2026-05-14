@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 
 export default function HeroSection() {
   const navigate = useNavigate();
@@ -21,12 +20,22 @@ export default function HeroSection() {
             Quality, style, and affordability — all in one place.
           </p>
           <div style={styles.actions}>
-            <Button onClick={() => navigate("/products")} variant="primary" fullWidth={false}>
+            <button
+              style={styles.primaryBtn}
+              onClick={() => navigate("/products")}
+              onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 8px 24px rgba(124,58,237,0.4)"; }}
+              onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 4px 16px rgba(124,58,237,0.3)"; }}
+            >
               Shop Now
-            </Button>
-            <Button onClick={() => navigate("/products")} variant="secondary" fullWidth={false}>
+            </button>
+            <button
+              style={styles.secondaryBtn}
+              onClick={() => navigate("/products")}
+              onMouseEnter={e => e.target.style.background = "rgba(124,58,237,0.08)"}
+              onMouseLeave={e => e.target.style.background = "transparent"}
+            >
               View All Products
-            </Button>
+            </button>
           </div>
 
           <div style={styles.stats}>
@@ -46,7 +55,7 @@ export default function HeroSection() {
         <div style={styles.right}>
           <div style={styles.imageCard}>
             <img
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80"
+             src=   "https://plus.unsplash.com/premium_photo-1677995700941-100976883af7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2hvcGlmeXxlbnwwfHwwfHx8MA%3D%3D"
               alt="Fashion"
               style={styles.heroImage}
             />
@@ -147,6 +156,33 @@ const styles = {
     gap: "12px",
     flexWrap: "wrap",
   },
+  primaryBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
+    color: "white",
+    border: "none",
+    padding: "14px 28px",
+    borderRadius: "14px",
+    fontSize: "14px",
+    fontWeight: "600",
+    cursor: "pointer",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    boxShadow: "0 4px 16px rgba(124,58,237,0.3)",
+  },
+  secondaryBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    background: "transparent",
+    color: "var(--primary)",
+    border: "2px solid var(--primary)",
+    padding: "14px 28px",
+    borderRadius: "14px",
+    fontSize: "14px",
+    fontWeight: "600",
+    cursor: "pointer",
+    transition: "all 0.2s",
+  },
   stats: {
     display: "flex",
     gap: "32px",
@@ -177,7 +213,7 @@ const styles = {
   imageCard: {
     position: "relative",
     width: "100%",
-    maxWidth: "420px",
+    maxWidth: "520px",
   },
   heroImage: {
     width: "100%",
