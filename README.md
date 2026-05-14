@@ -1,16 +1,64 @@
-# React + Vite
+## ShopNova README
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Overview
+ShopNova is a responsive React e-commerce frontend built with Vite and Tailwind CSS. It includes a product listing page, product details page, search/filter/sort functionality, loading states, error handling, and cart support via Context API.
 
-Currently, two official plugins are available:
+### Tech Stack
+- React
+- Vite
+- Tailwind CSS
+- React Router DOM
+- Context API
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Features
+- Fetch products from `https://dummyjson.com/products`
+- Product listing with search, category filter, and sort
+- Responsive product grid
+- Product details page with image gallery, quantity selector, and related products
+- Loading and error states
+- Reusable Tailwind UI components
+- Cart integration using `CartContext`
 
-## React Compiler
+### Project Structure
+```
+src/
+├── api/
+├── assets/
+├── components/
+│   ├── Button.jsx
+│   ├── FilterBar.jsx
+│   ├── Loader.jsx
+│   ├── ProductCard.jsx
+│   ├── ProductList.jsx
+│   └── ...
+├── context/
+│   ├── AuthContext.jsx
+│   └── CartContext.jsx
+├── pages/
+│   ├── HomePage.jsx
+│   ├── ProductsPage.jsx
+│   ├── ProductDetailsPage.jsx
+│   └── ...
+├── App.jsx
+└── main.jsx
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Scripts
+- `npm run dev` — start development server
+- `npm run build` — build production bundle
+- `npm run preview` — preview production build
 
-## Expanding the ESLint configuration
+### Usage
+1. Install dependencies:
+   `npm install`
+2. Run dev server:
+   `npm run dev`
+3. Open browser at `http://localhost:5173`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Notes
+- Uses existing Tailwind theme variables in index.css
+- Routes supported:
+  - `/products`
+  - `/products/:id`
+
+This README is a simple summary to describe your project and how to run it.
