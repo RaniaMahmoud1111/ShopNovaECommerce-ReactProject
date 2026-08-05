@@ -44,7 +44,7 @@ export default function ProductDetailsPage() {
 
   useEffect(() => {
     fetchProduct();
-  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
