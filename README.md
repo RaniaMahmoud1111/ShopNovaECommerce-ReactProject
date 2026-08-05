@@ -1,28 +1,26 @@
-## ShopNova README
+# ShopNova
 
-### Overview
-ShopNova is a responsive React e-commerce frontend built with Vite and Tailwind CSS. It includes a product listing page, product details page, search/filter/sort functionality, loading states, error handling, and cart support via Context API.
+## Overview
+ShopNova is a polished React e-commerce frontend built with Vite and Tailwind CSS. The app offers a smooth shopping experience with product browsing, product details, filtering, sorting, and cart management.
 
-### Tech Stack
+## Key Features
+- Fetches product data from `https://dummyjson.com/products`
+- Search, category filter, and sorting options
+- Responsive product grid for mobile and desktop
+- Product details page with image carousel and quantity selection
+- Loading and error states for better UX
+- Shopping cart powered by React Context API
+
+## Tech Stack
 - React
 - Vite
 - Tailwind CSS
 - React Router DOM
 - Context API
 
-### Features
-- Fetch products from `https://dummyjson.com/products`
-- Product listing with search, category filter, and sort
-- Responsive product grid
-- Product details page with image gallery, quantity selector, and related products
-- Loading and error states
-- Reusable Tailwind UI components
-- Cart integration using `CartContext`
-
-### Project Structure
+## Project Structure
 ```
 src/
-├── api/
 ├── assets/
 ├── components/
 │   ├── Button.jsx
@@ -43,22 +41,18 @@ src/
 └── main.jsx
 ```
 
-### Scripts
-- `npm run dev` — start development server
-- `npm run build` — build production bundle
-- `npm run preview` — preview production build
-
-### Usage
+## Run the project
 1. Install dependencies:
    `npm install`
-2. Run dev server:
+2. Start development server:
    `npm run dev`
 3. Open browser at `http://localhost:5173`
 
-### Notes
-- Uses existing Tailwind theme variables in index.css
-- Routes supported:
-  - `/products`
-  - `/products/:id`
+## Available scripts
+- `npm run dev` — start development server
+- `npm run build` — production build
+- `npm run preview` — preview production build
 
-This README is a simple summary to describe your project and how to run it.
+## Supported routes
+- `/products`
+- `/products/:id`
